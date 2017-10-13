@@ -7,6 +7,12 @@
 		"type":"人文",
 		"description":"人生在世如身处荆棘之中，心不动，人不妄动，不动则不伤，如心动则人妄动，伤其身腐其骨，于是体会到世间诸般痛苦",
 		"time":"09-10 21:32",
+		"imgeList":[
+				"static/imgdetail/pic_02.png",
+				"static/imgdetail/pic_04.png",
+				"static/imgdetail/pic_06.png",
+				"static/imgdetail/pic_08.png"
+			],
 		"componentList":[
 			{
 				"author":"李小四",

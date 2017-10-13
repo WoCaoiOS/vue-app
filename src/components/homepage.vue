@@ -53,7 +53,7 @@
 		</section>
 		<section>
 			<ul class="list_box">
-				<li v-for="img in dataList" class="clearfix">
+				<li v-for="img in dataList" class="clearfix" @click="gotoDetail(img.id)">
 					<div class="fl img_box">
 						<img v-lazy="img.img" alt="">
 					</div>
@@ -93,7 +93,7 @@
 				<tr v-for="i of Math.ceil(hotList.length/2)">
 				<!-- {{hotList[2*(i-1)].author}} -->
 				<!-- {{hotList[2*i-1].author}} -->
-					<td v-for="j of 2">
+					<td v-for="j of 2" @click="gotoDetail(hotList[2*i+j-3].id)">
 						<div>
 							<img v-lazy="hotList[2*i+j-3].img" alt="">
 							<span>组图{{hotList[2*i+j-3].imgeList.length}}张</span>
@@ -193,6 +193,10 @@
 				if (this.pageNo>4) {
 					this.allLoaded = true;
 				}
+			},
+			gotoDetail(infoId){
+				this.$store.dispatch('setInfoId',infoId);
+				this.$router.push({path:'/imageDetail'})
 			}
 		},
 		created(){
