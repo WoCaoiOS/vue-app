@@ -93,23 +93,23 @@
 				<tr v-for="i of Math.ceil(hotList.length/2)">
 				<!-- {{hotList[2*(i-1)].author}} -->
 				<!-- {{hotList[2*i-1].author}} -->
-					<td>
+					<td v-for="j of 2">
 						<div>
-							<img v-lazy="hotList[2*(i-1)].img" alt="">
-							<span>组图{{hotList[2*(i-1)].imgeList.length}}张</span>
+							<img v-lazy="hotList[2*i+j-3].img" alt="">
+							<span>组图{{hotList[2*i+j-3].imgeList.length}}张</span>
 						</div>
 						<div class="hot_title">
-							{{hotList[2*(i-1)].title}}
+							{{hotList[2*i+j-3].title}}
 						</div>
 						<div class="hot_author">
-							{{hotList[2*(i-1)].author}}
+							{{hotList[2*i+j-3].author}}
 						</div>
 						<div class="hot_info">
-							<b>{{hotList[2*(i-1)].comment}}</b>
-							<b>{{hotList[2*(i-1)].favorite}}</b>
+							<b>{{hotList[2*i+j-3].comment}}</b>
+							<b>{{hotList[2*i+j-3].favorite}}</b>
 						</div>
 					</td>
-					<td>
+					<!-- <td>
 						<div>
 							<img v-lazy="hotList[2*i-1].img" alt="">
 							<span>组图{{hotList[2*i-1].imgeList.length}}张</span>
@@ -124,7 +124,7 @@
 							<b>{{hotList[2*i-1].comment}}</b>
 							<b>{{hotList[2*i-1].favorite}}</b>
 						</div>
-					</td>
+					</td> -->
 				</tr>
 			</table>
 		</section>
