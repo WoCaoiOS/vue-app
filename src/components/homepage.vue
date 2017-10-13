@@ -8,6 +8,8 @@
 	    		<mt-button class="search"></mt-button>
 	  		</router-link>
 		</mt-header>
+		<div class="load_page">
+		<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :auto-fill="false">
 		<section>
 			<!-- 绑定内联样式，以保证幻灯图完全显示 -->
 			<mt-swipe :auto="4000" :style="{height:height+'px'}">
@@ -18,7 +20,7 @@
 			</mt-swipe>
 		</section>
 		<section>
-			<table>
+			<table class="menu_box">
 				<tr>
 					<td>
 						<div class="menu_logo"></div>
@@ -74,6 +76,60 @@
 				</li>
 			</ul>
 		</section>
+		<section class="hot_box">
+			<h2>
+				热
+				<span class="l_border"></span>
+				门
+				<span class="l_border"></span>
+				图
+				<span class="l_border"></span>
+				片
+				<div>
+					HPT PICTURES
+				</div>
+			</h2>
+			<table class="hot_table">
+				<tr v-for="i of Math.ceil(hotList.length/2)">
+				<!-- {{hotList[2*(i-1)].author}} -->
+				<!-- {{hotList[2*i-1].author}} -->
+					<td>
+						<div>
+							<img v-lazy="hotList[2*(i-1)].img" alt="">
+							<span>组图{{hotList[2*(i-1)].imgeList.length}}张</span>
+						</div>
+						<div class="hot_title">
+							{{hotList[2*(i-1)].title}}
+						</div>
+						<div class="hot_author">
+							{{hotList[2*(i-1)].author}}
+						</div>
+						<div class="hot_info">
+							<b>{{hotList[2*(i-1)].comment}}</b>
+							<b>{{hotList[2*(i-1)].favorite}}</b>
+						</div>
+					</td>
+					<td>
+						<div>
+							<img v-lazy="hotList[2*i-1].img" alt="">
+							<span>组图{{hotList[2*i-1].imgeList.length}}张</span>
+						</div>
+						<div class="hot_title">
+							{{hotList[2*i-1].title}}
+						</div>
+						<div class="hot_author">
+							{{hotList[2*i-1].author}}
+						</div>
+						<div class="hot_info">
+							<b>{{hotList[2*i-1].comment}}</b>
+							<b>{{hotList[2*i-1].favorite}}</b>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</section>
+		</mt-loadmore>
+		</div>
 	</div>
 </template>
 <script>
@@ -84,7 +140,9 @@
 				imgList:[],
 				height:0,
 				dataList:[],
-				hotList:[]
+				hotList:[],
+				allLoaded:false,  //是否已经加载完所有数据
+				pageNo:1
 			}
 		},
 		methods:{
@@ -107,6 +165,34 @@
 					this.dataList = response.data.dataList;
 					this.hotList = response.data.hotList;
 				})
+			},
+			loadTop(){
+				this.pageNo = 1;
+				// 下拉刷新方法，重新获取数据
+				this.getSliderData();
+				this.getHomeList();
+
+				setTimeout(()=>{
+					// 恢复刷新控件
+					this.$refs.loadmore.onTopLoaded();
+				},2000)
+				
+			},
+			loadBottom(){
+				this.pageNo++;
+				// 加载更多，一般用于处理分页获取
+				this.lodeMoreData()
+			},
+			lodeMoreData(){
+				// 访问接口，将新数据添加到原有数组红
+				setTimeout(()=>{
+					// 恢复加载控件
+					 this.$refs.loadmore.onBottomLoaded();
+				},2000)
+				// 判断是否有更多，如果没有则不再显示加载功能
+				if (this.pageNo>4) {
+					this.allLoaded = true;
+				}
 			}
 		},
 		created(){
@@ -116,6 +202,9 @@
 	}
 </script>
 <style scoped>
+	.load_page{
+		overflow: scroll;
+	}
 	.mint-header{
 		background: rgb(35,38,43);
 		height: 44px;
@@ -125,54 +214,59 @@
 		height: 20px;
 		background: url(../assets/user_center.png);
 		background-size: 100%;
+		border-radius: 50%;
 	}
 	.search{
 		width: 20px;
 		height: 20px;
-		background: url(../assets/search.gif);
+		background: url(../assets/search.png);
 		background-size: 100%;
+		border-radius: 50%;
 	}
 	.mint-swipe-item img{
 		width: 100%;
 	}
-	table{
+	table.menu_box{
 		width: 100%;
 		margin-bottom: 20px;
 	}
-	td{
+	table.menu_box td{
 		/*border:1px solid red;*/
 		color:rgb(45,45,45);
 		padding: 10px 0;
 	}
-	td>div.menu_logo{
+	table.menu_box td>div.menu_logo{
 		margin: auto;
 		width: 50px;
 		height:45px;
 		background: no-repeat center;
 		background-size: 70%;
 	}
-	tr:first-child>td:first-child>div.menu_logo{
+	table.menu_box tr:first-child>td:first-child>div.menu_logo{
 		background-image: url(../assets/img_catagory.gif);
 	}
-	tr:first-child>td:nth-child(2)>div.menu_logo{
+	table.menu_box tr:first-child>td:nth-child(2)>div.menu_logo{
 		background-image: url(../assets/img_money.gif);
-		background-size: 60%;
+		background-size: 50%;
 	}
-	tr:first-child>td:nth-child(3)>div.menu_logo{
+	table.menu_box tr:first-child>td:nth-child(3)>div.menu_logo{
 		background-image: url(../assets/news.gif);
 	}
-	tr:last-child>td:nth-child(1)>div.menu_logo{
+	table.menu_box tr:last-child>td:nth-child(1)>div.menu_logo{
 		background-image: url(../assets/video.gif);
 	}
-	tr:last-child>td:nth-child(2)>div.menu_logo{
+	table.menu_box tr:last-child>td:nth-child(2)>div.menu_logo{
 		background-image: url(../assets/jifen.gif);
+		background-size: 50%;
 	}
-	tr:last-child>td:nth-child(3)>div.menu_logo{
+	table.menu_box tr:last-child>td:nth-child(3)>div.menu_logo{
 		background-image: url(../assets/follow.gif);
+		background-size: 50%;
 	}
-	.list_box{
+	.list_box,.hot_box{
 		width: 100%;
 		background: rgb(250,250,250);
+		margin-bottom: 0
 		/*background: gray;*/
 	}
 	.list_box>li{
@@ -238,6 +332,80 @@
 	.favorite{
 		padding-left: 24px;
 		background: url(../assets/favorite.png) no-repeat left center;
+	}
+	.hot_box h2{
+		margin: 0;
+		font-size: 15px;
+		padding: 15px;
+		color: #2d2d2d;
+	}
+	.l_border{
+		display: inline-block;
+		height: 10px;
+		border-left: 1px solid #919191;
+		margin-left: 3px;
+		margin-right: 3px;
+	}
+	.hot_box h2 div{
+		margin-top: 5px;
+	}
+	.hot_table{
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.hot_table td{
+		width: 50%;
+		background: rgb(250,250,250);
+		padding-bottom: 10px;
+	}
+	.hot_table td div{
+		position: relative;
+		width: 90%;
+		margin: auto;
+		text-align: left;
+		color: #919191;
+		background-color: white;
+		padding: 0 5px;
+	}
+	.hot_table td img{
+		width: 100%;
+	}
+	.hot_table td div span{
+		position: absolute;
+		right: 0;
+		top: 5px;
+		padding: 5px 5px;
+		color: white;
+		background-color: rgba(242,150,0,0.4);
+		font-size: 10px;
+	}
+	.hot_table td div.hot_title{
+		color: #000000;
+		font-size: 13px;
+	}
+	.hot_table td div.hot_author{
+		font-size: 11px;
+		margin-top: 5px;
+		padding: 5px 5px 10px;
+		border-bottom: 1px solid #e5e5e5;
+	}
+	.hot_table td div.hot_info{
+		padding-bottom:10px;
+	}
+	.hot_table td div.hot_info b{
+		font-weight: normal;
+		font-size: 10px;
+		padding-left: 20px;
+		background: no-repeat left center;
+		background-size: 20px 20px;
+		padding-right: 10px;
+		
+	}
+	.hot_table td div.hot_info b:first-child{
+		background-image: url('../assets/comment.png');
+	}
+	.hot_table td div.hot_info b:last-child{
+		background-image: url('../assets/favorite.png');
 	}
 </style>
 <style>

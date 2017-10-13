@@ -1,6 +1,7 @@
 {
 	"dataList":[
 		{
+			"id":"001",
 			"img":"static/homeImgs/index_38.gif",
 			"title":"经典逆光人像速成技巧",
 			"author":"无限潜能",
@@ -10,25 +11,28 @@
 			"favorite":10
 		},
 		{
-			"img":"static/homeImgs/index_38.gif",
+			"id":"002",
+			"img":"static/homeImgs/index_41.gif",
+			"title":"经典逆光人像速成技巧",
+			"author":"无限潜能",
+			"description":"昨天借多久哦文件低价位机欧锦都二维",
+			"type":"人像",
+			"comment":20,
+			"favorite":13
+		},
+		{
+			"id":"003",
+			"img":"static/homeImgs/index_43.gif",
 			"title":"经典逆光人像速成技巧",
 			"author":"无限潜能",
 			"description":"昨天借多久哦文件低价位机欧锦都二维",
 			"type":"人像",
 			"comment":10,
-			"favorite":10
+			"favorite":16
 		},
 		{
-			"img":"static/homeImgs/index_38.gif",
-			"title":"经典逆光人像速成技巧",
-			"author":"无限潜能",
-			"description":"昨天借多久哦文件低价位机欧锦都二维",
-			"type":"人像",
-			"comment":10,
-			"favorite":10
-		},
-		{
-			"img":"static/homeImgs/index_38.gif",
+			"id":"004",
+			"img":"static/homeImgs/index_47.gif",
 			"title":"经典逆光人像速成技巧",
 			"author":"无限潜能",
 			"description":"昨天借多久哦文件低价位机欧锦都二维",
@@ -39,7 +43,8 @@
 	],
 	"hotList":[
 		{
-			"img":"static/homeImgs/index_38.gif",
+			"id":"005",
+			"img":"static/homeImgs/hot_26.png",
 			"title":"经典逆光人像速成技巧",
 			"author":"无限潜能",
 			"description":"昨天借多久哦文件低价位机欧锦都二维",
@@ -47,43 +52,82 @@
 			"comment":10,
 			"favorite":10,
 			"imgeList":[
-				"static/1.jpg"
+				"static/imgdetail/pic_02.png",
+				"static/imgdetail/pic_04.png",
+				"static/imgdetail/pic_06.png",
+				"static/imgdetail/pic_08.png"
 			]	
 		},
 		{
-			"img":"static/homeImgs/index_38.gif",
+			"id":"006",
+			"img":"static/homeImgs/hot_29.png",
 			"title":"经典逆光人像速成技巧",
-			"author":"无限潜能",
+			"author":"无限",
 			"description":"昨天借多久哦文件低价位机欧锦都二维",
 			"type":"人像",
 			"comment":10,
 			"favorite":10,
 			"imgeList":[
-				"static/1.jpg"
+				
 			]	
 		},
 		{
-			"img":"static/homeImgs/index_38.gif",
+			"id":"007",
+			"img":"static/homeImgs/hot_35.png",
 			"title":"经典逆光人像速成技巧",
-			"author":"无限潜能",
+			"author":"12321",
 			"description":"昨天借多久哦文件低价位机欧锦都二维",
 			"type":"人像",
 			"comment":10,
 			"favorite":10,
 			"imgeList":[
-				"static/1.jpg"
+				"static/imgdetail/pic_02.png",
+				"static/imgdetail/pic_04.png",
+				"static/imgdetail/pic_06.png"
 			]	
 		},
 		{
-			"img":"static/homeImgs/index_38.gif",
+			"id":"008",
+			"img":"static/homeImgs/hot_36.png",
 			"title":"经典逆光人像速成技巧",
-			"author":"无限潜能",
+			"author":"大力",
 			"description":"昨天借多久哦文件低价位机欧锦都二维",
 			"type":"人像",
 			"comment":10,
 			"favorite":10,
 			"imgeList":[
-				"static/1.jpg"
+				"static/imgdetail/pic_02.png",
+				"static/imgdetail/pic_04.png",
+				"static/imgdetail/pic_06.png",
+				"static/imgdetail/pic_02.png",
+				"static/imgdetail/pic_04.png",
+				"static/imgdetail/pic_06.png"
+			]	
+		},
+		{
+			"id":"009",
+			"img":"static/homeImgs/hot_51.png",
+			"title":"经典逆光人像速成技巧",
+			"author":"李晓华",
+			"description":"昨天借多久哦文件低价位机欧锦都二维",
+			"type":"人像",
+			"comment":10,
+			"favorite":10,
+			"imgeList":[
+				
+			]	
+		},
+		{
+			"id":"0010",
+			"img":"static/homeImgs/hot_54.png",
+			"title":"经典逆光人像速成技巧",
+			"author":"战三",
+			"description":"昨天借多久哦文件低价位机欧锦都二维",
+			"type":"人像",
+			"comment":10,
+			"favorite":10,
+			"imgeList":[
+				
 			]	
 		}
 	]
