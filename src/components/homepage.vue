@@ -202,23 +202,30 @@
 	}
 </script>
 <style scoped>
+	/*隐藏滚动条*/
+	html {
+	    -ms-overflow-style:none;
+	    overflow:-moz-scrollbars-none;
+	}
+	html::-webkit-scrollbar{width:0px}
 	.load_page{
-		overflow: scroll;
+
+		overflow-y: scroll;
 	}
 	.mint-header{
 		background: rgb(35,38,43);
 		height: 44px;
 	}
 	.user_center{
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		background: url(../assets/user_center.png);
 		background-size: 100%;
 		border-radius: 50%;
 	}
 	.search{
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		background: url(../assets/search.png);
 		background-size: 100%;
 		border-radius: 50%;
@@ -274,6 +281,8 @@
 		margin: auto;
 		margin-top: 10px;
 		background: white;
+		border:1px solid #f4f4f4;
+		position: relative;
 	}
 	.fl{
 		float: left;
@@ -287,22 +296,28 @@
 	.img_box{
 		width: 40%;
 		position: relative;
+		background-color: #bfbfbf;
 	}
 	.img_box>img{
 		width: 100%;
+		display: block;
 	}
 	.img_box:after{
 		position: absolute;
-		right: -5px;
+		right: -4px;
 		top: 5%;
 		height: 90%;
-		width: 5px;
+		width: 4px;
 		content: "";
 		background: rgb(242,150,0);
 	}
 	.intro_box{
 		width: 60%;
 		padding: 0 15px;
+		position: absolute;
+    	top: 0px;
+    	bottom: 0px;
+    	right: 0;	
 	}
 	li>div.intro_box{
 		color: rgb(154,154,154);
@@ -311,7 +326,7 @@
 	li>div.intro_box>div.title_label{
 		color: rgb(45,45,45);
 		font-size: 13px;
-		margin-top: 15px;
+		margin-top: 10px;
 	}
 	li>div.intro_box>div.author_label{
 		font-size: 11px;
@@ -323,15 +338,21 @@
 	}
 	li>div.intro_box>div.info_label{
 		font-size: 11px;
-		margin-top: 20px;
+		position: absolute;
+		bottom: 5px;
+		left: 15px;
+		right: 15px;
+		/*width:100%;*/
 	}
 	.comment{
-		padding-left: 24px;
+		padding-left: 20px;
 		background: url(../assets/comment.png) no-repeat left center; 
+		background-size: 20px 20px;
 	}
 	.favorite{
-		padding-left: 24px;
+		padding-left: 20px;
 		background: url(../assets/favorite.png) no-repeat left center;
+		background-size: 20px 20px;
 	}
 	.hot_box h2{
 		margin: 0;
@@ -351,24 +372,33 @@
 	}
 	.hot_table{
 		width: 100%;
-		border-collapse: collapse;
+		background: rgb(250,250,250);
+		border-spacing: 10px;
 	}
 	.hot_table td{
-		width: 50%;
-		background: rgb(250,250,250);
-		padding-bottom: 10px;
+		/*width: 50%;*/
+		/*background: rgb(250,250,250);*/
+		background: white;
+		padding: 0;
+		padding-bottom: 5px;
+		border:1px solid #f4f4f4;
 	}
 	.hot_table td div{
 		position: relative;
-		width: 90%;
-		margin: auto;
+		width: 100%;
 		text-align: left;
 		color: #919191;
 		background-color: white;
+		margin: auto;
 		padding: 0 5px;
+	}
+	.hot_table td div:first-child{
+		padding: 0;
+
 	}
 	.hot_table td img{
 		width: 100%;
+		display: block;
 	}
 	.hot_table td div span{
 		position: absolute;
@@ -380,6 +410,7 @@
 		font-size: 10px;
 	}
 	.hot_table td div.hot_title{
+		margin-top: 10px;
 		color: #000000;
 		font-size: 13px;
 	}
@@ -390,6 +421,7 @@
 		border-bottom: 1px solid #e5e5e5;
 	}
 	.hot_table td div.hot_info{
+		padding-top: 5px;
 		padding-bottom:10px;
 	}
 	.hot_table td div.hot_info b{
