@@ -12,8 +12,8 @@
 				"static/imgdetail/pic_04.png",
 				"static/imgdetail/pic_06.png",
 				"static/imgdetail/pic_08.png"
-			],
-		"componentList":[
+		],
+		"commentList":[
 			{
 				"author":"李小四",
 				"avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507862816927&di=2b6d3563e56e8ce39b773bf469217bc2&imgtype=0&src=http%3A%2F%2Ffile03.16sucai.com%2F2016%2F01%2F2016djnbckoaopx.jpg",
@@ -33,7 +33,14 @@
 				"time":"09-10 21:32"
 			}
 		],
-		"siFav":"0",
-		"isPraise":"1"
+		"moneyList":[
+			{
+				"author":"葬爱家族",
+				"avatar":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507862868141&di=9becafa80e6387e27fa47feeb23d656c&imgtype=0&src=http%3A%2F%2Fwww.qqleju.com%2Fuploads%2Fallimg%2F160111%2F11-084637_486.jpg",
+				"money":"1"
+			}
+		],
+		"isFav":1,
+		"isPraise":1
 	}
 }

@@ -240,6 +240,7 @@
 	table.menu_box{
 		width: 100%;
 		margin-bottom: 20px;
+		text-align: center;
 	}
 	table.menu_box td{
 		/*border:1px solid red;*/
@@ -288,15 +289,7 @@
 		border:1px solid #f4f4f4;
 		position: relative;
 	}
-	.fl{
-		float: left;
-	}
-	.fr{
-		float: right;
-	}
-	.clearfix{
-		overflow: hidden;
-	}
+	
 	.img_box{
 		width: 40%;
 		position: relative;
@@ -363,6 +356,7 @@
 		font-size: 15px;
 		padding: 15px;
 		color: #2d2d2d;
+		text-align: center;
 	}
 	.l_border{
 		display: inline-block;
@@ -454,5 +448,14 @@
 	}
 	.mint-swipe-indicator.is-active{
 		background: orange;
+	}
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+	.clearfix{
+		overflow: hidden;
 	}
 </style>
