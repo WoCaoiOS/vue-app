@@ -23,8 +23,14 @@
 			<table class="menu_box">
 				<tr>
 					<td>
+					<router-link to="/category">
+								
 						<div class="menu_logo"></div>
-						<div>分类图片</div>
+						<div>
+							分类图片
+							
+						</div>
+						</router-link>
 					</td>
 					<td>
 						<div class="menu_logo"></div>
@@ -109,22 +115,6 @@
 							<b>{{hotList[2*i+j-3].favorite}}</b>
 						</div>
 					</td>
-					<!-- <td>
-						<div>
-							<img v-lazy="hotList[2*i-1].img" alt="">
-							<span>组图{{hotList[2*i-1].imgeList.length}}张</span>
-						</div>
-						<div class="hot_title">
-							{{hotList[2*i-1].title}}
-						</div>
-						<div class="hot_author">
-							{{hotList[2*i-1].author}}
-						</div>
-						<div class="hot_info">
-							<b>{{hotList[2*i-1].comment}}</b>
-							<b>{{hotList[2*i-1].favorite}}</b>
-						</div>
-					</td> -->
 				</tr>
 			</table>
 		</section>
@@ -212,6 +202,10 @@
 	    overflow:-moz-scrollbars-none;
 	}
 	html::-webkit-scrollbar{width:0px}
+	a{
+		color:rgb(45,45,45);
+		text-decoration: none;
+	}
 	.load_page{
 
 		overflow-y: scroll;
@@ -247,14 +241,14 @@
 		color:rgb(45,45,45);
 		padding: 10px 0;
 	}
-	table.menu_box td>div.menu_logo{
+	table.menu_box td div.menu_logo{
 		margin: auto;
 		width: 50px;
 		height:45px;
 		background: no-repeat center;
 		background-size: 70%;
 	}
-	table.menu_box tr:first-child>td:first-child>div.menu_logo{
+	table.menu_box tr:first-child>td:first-child div.menu_logo{
 		background-image: url(../assets/img_catagory.gif);
 	}
 	table.menu_box tr:first-child>td:nth-child(2)>div.menu_logo{
@@ -457,5 +451,9 @@
 	}
 	.clearfix{
 		overflow: hidden;
+	}
+	.mint-header{
+		background: rgb(35,38,43);
+		height: 44px;
 	}
 </style>

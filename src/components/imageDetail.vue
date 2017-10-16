@@ -1,5 +1,5 @@
 <template>
-	<div id="imageDetail">
+	<div id="imageDetail" :style="{height:viewHeight+'px'}" :class="{noScroll:showMoneyView}">
 		<header class="top_header">
 			<mt-header>
 	    		<mt-button icon="back" slot="left" @click="goBack">&nbsp;&nbsp;</mt-button>
@@ -27,7 +27,7 @@
 			<div class="money_box" >
 				<div class="tips">点赞是美德，打赏是鼓励</div>
 				<div class="btn_box">
-					<mt-button type="primary"><span>$</span>打赏</mt-button>
+					<mt-button type="primary" @click="showMoneyView=true"><span>$</span>打赏</mt-button>
 				</div>
 				<div class="reward_box">
 					<span class="reward_tips" v-if="rewardList.length==0">还没有人打赏，来当第一个打赏的人吧！</span>
@@ -59,24 +59,72 @@
 			</div>
 		</section>
 		<footer>
-			<input type="text" class="input_control" placeholder="说点什么吧">
+			<input type="text" class="input_control" placeholder="说点什么吧" @keyup.enter="comitComment" v-model="inputText">
 			<button type="button" class="praise" :class="{'praise_active':praiseIsActive}" @click="praiseIsActive = !praiseIsActive"></button>
 			<button type="button" class="favorite" :class="{'favorite_active':isFav}" @click="isFav = !isFav"></button>
 			<button type="button" class="share"></button>
 		</footer>
+
+		<div class="moneyView" v-if="showMoneyView">
+			<div class="content_view">
+				<div class="clearfix">
+					<span class="fr close_btn" @click="showMoneyView=false">×</span>
+				</div>
+				<div>
+					<img v-lazy="imgDetailInfo.avatar" alt="" class="avatar_lg">
+					<div style="text-align:center;color:#919191;font-size:12px; margin-top:5px;">向{{imgDetailInfo.author}}打赏</div>
+				</div>
+				<div class="count_box">
+					<span @click="money=money>1?--money:1">-</span>
+					<input type="text" v-model="money">
+					<span @click="money++">+</span>
+				</div>
+				<div>
+					留言：
+					<textarea name="" id="" cols="30" rows="4"></textarea>
+				</div>
+				<div class="btn_box">
+					<mt-button type="primary" class="btn_round" @click="giveMoney">赏了</mt-button>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 <script>					
 	import qs from 'qs'
+	import { MessageBox } from 'mint-ui';//单独引入弹出框
+	// 格式化日期代码
+	Date.prototype.format = function(fmt)
+	{ //author: meizz
+	  var o = {
+	    "M+" : this.getMonth()+1,                 //月份
+	    "d+" : this.getDate(),                    //日
+	    "h+" : this.getHours(),                   //小时
+	    "m+" : this.getMinutes(),                 //分
+	    "s+" : this.getSeconds(),                 //秒
+	    "q+" : Math.floor((this.getMonth()+3)/3), //季度
+	    "S"  : this.getMilliseconds()             //毫秒
+	  };
+	  if(/(y+)/.test(fmt))
+	    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+	  for(var k in o)
+	    if(new RegExp("("+ k +")").test(fmt))
+	  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+	  return fmt;
+	}
 	export default{
 		name:"imageDetail",
 		data(){
 			return{
 				imgDetailInfo:{},
-				rewardList:[],
-				comments:[],
+				rewardList:[],//打赏数组
+				comments:[],//评论数组
 				praiseIsActive:0,
-				isFav:0
+				isFav:0,
+				viewHeight:0,
+				showMoneyView:false,  //用来判断是否显示打赏页面
+				money:1,  //打赏的钱数
+				inputText:''//评论文本框中输入的内容
 			}
 		},
 		methods:{
@@ -94,15 +142,80 @@
 					this.praiseIsActive = response.data.data.isPraise;
 					this.isFav = response.data.data.isFav;
 				})
+			},
+			giveMoney(){
+				console.log(this.loginStatus)
+				if (this.loginStatus) {
+					var isInArr = false
+					// 遍历已有的打赏数组
+					for (var i = 0; i < this.rewardList.length; i++) {
+						if (this.rewardList[i].id == this.userId) {
+							this.rewardList[i].money+=this.money;
+							isInArr = true;
+							break;
+						}
+					}
+					// 数组中没有打赏记录
+					if (!isInArr) {
+						var obj = {
+							"id":this.userInfo.userId,
+							"name":this.userInfo.userName,
+							"avatar":this.userInfo.avatar,
+							"money":this.money
+						}
+
+						this.rewardList.push(obj);
+					}
+				}else{
+					MessageBox({
+					  title: '提示',
+					  message: '您还没有登录',
+					  showCancelButton: true,
+					  showConfirmButton:true
+					})
+					.then(action=>{
+						console.log(action)
+						if (action=='confirm') {
+							console.log('去登陆页面')
+						}
+					})
+
+				}
+				this.showMoneyView=false;
+			},
+			// 添加评论
+			comitComment(){
+				if (this.inputText.length == 0) {
+					MessageBox('请输入评论内容')
+				}else{
+					var time = new Date().format('MM-dd hh:mm');
+					console.log(time)
+					var obj = {
+						"author":this.userInfo.userName,
+						"avatar":this.userInfo.avatar,
+						"content":this.inputText,
+						"time":time
+					}
+					// 将新数据加入到评论数组
+					this.comments.push(obj);
+					this.inputText='';
+				}
 			}
 		},
 		computed:{
 			infoId:function(){
 				return this.$store.getters.getInfoId;
+			},
+			loginStatus:function(){
+				return this.$store.getters.getLoginStatus;
+			},
+			userInfo:function(){
+				return this.$store.getters.getUserInfo;
 			}
 		},
 		created(){
-			console.log("----"+this.infoId);
+			this.viewHeight = screen.height;
+			console.log("----"+screen.height);
 			this.getImgDetail();				
 		}
 	}
@@ -182,7 +295,7 @@
 		text-align: center;
 		line-height: 15px;
 	}
-	.btn_box>.mint-button--primary{
+	.btn_box>.mint-button--primary,.primary{
 		background: rgb(242,150,0);
 		border-radius: 0;
 		border:none;
@@ -268,9 +381,6 @@
 	.content_label{
 		font-size: 13px;
 	}
-	section{
-		padding-bottom: 55px;
-	}
 	footer{
 		position: fixed;
 		bottom: 0;
@@ -320,6 +430,76 @@
 	.share{
 		background: url(../assets/share.png) no-repeat center;
 		background-size: 70%;
+	}
+	.moneyView{
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		background: rgba(0,0,0,.5);
+	}
+	#imageDetail{
+		overflow:auto;
+		padding-bottom: 55px;
+	}
+	#imageDetail.noScroll{
+		overflow:hidden;
+		padding-bottom:0;
+	}
+	.content_view{
+		width: 80%;
+		margin: 150px auto;
+		height: 400px;
+		background: white;
+		border-radius: 2px;
+	}
+	.close_btn{
+		padding: 5px;
+		font-size: 25px;
+		margin-right: 5px;
+		color: rgb(142,142,142);
+		cursor: pointer;
+	}
+	.avatar_lg{
+		width: 50px;
+		border-radius: 50%;
+		display: block;
+		margin: auto;
+	}
+	.count_box{
+		width: 80%;
+		padding: 15px;
+		margin: auto;
+		border-bottom: 1px solid rgb(240,240,240);
+		font-size: 12px;
+		text-align: center;
+	}
+	.count_box span{
+		color: black;
+		font-size: 20px;
+	}
+	.count_box input{
+		width: 50px;
+		border: none;
+		outline: none;
+		text-align: center;
+		color: rgb(142,142,142);
+	}
+	.count_box+div{
+		text-align: left;
+		color: rgb(142,142,142);
+		width: 80%;
+		margin: auto;
+		margin-top: 20px;
+	}
+	.count_box+div textarea{
+		border: none;
+		resize: none;
+	}
+	.btn_round{
+		height: 40px;
+		border-radius:20px!important; 
 	}
 </style>
 <style>
