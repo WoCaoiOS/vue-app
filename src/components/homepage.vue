@@ -15,18 +15,18 @@
 			<table class="menu_box">
 				<tr>
 					<td>
-					<router-link to="/category">
-								
-						<div class="menu_logo"></div>
-						<div>
-							分类图片
-							
-						</div>
+						<router-link to="/category/category">		
+							<div class="menu_logo"></div>
+							<div>
+								分类图片
+							</div>
 						</router-link>
 					</td>
 					<td>
-						<div class="menu_logo"></div>
-						<div>付费图片</div>
+						<router-link to="/category/needMoney">
+							<div class="menu_logo"></div>
+							<div>付费图片</div>
+						</router-link>
 					</td>
 					<td>
 						<div class="menu_logo"></div>
@@ -246,7 +246,7 @@
 	table.menu_box tr:first-child>td:first-child div.menu_logo{
 		background-image: url(../assets/img_catagory.gif);
 	}
-	table.menu_box tr:first-child>td:nth-child(2)>div.menu_logo{
+	table.menu_box tr:first-child>td:nth-child(2) div.menu_logo{
 		background-image: url(../assets/img_money.gif);
 		background-size: 50%;
 	}
