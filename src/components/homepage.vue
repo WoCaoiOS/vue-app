@@ -10,15 +10,7 @@
 		</mt-header>
 		<div class="load_page">
 		<mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" :auto-fill="false">
-		<section>
-			<!-- 绑定内联样式，以保证幻灯图完全显示 -->
-			<mt-swipe :auto="4000" :style="{height:height+'px'}">
-			  <mt-swipe-item v-for="img in imgList">
-			  	<!-- 为img绑定load方法，在图片加载完成后触发 -->
-			  	<img v-lazy="img" alt="" @load="imgLoded(this)">
-			  </mt-swipe-item>
-			</mt-swipe>
-		</section>
+		<slider type="homepage"></slider>
 		<section>
 			<table class="menu_box">
 				<tr>
@@ -123,6 +115,8 @@
 	</div>
 </template>
 <script>
+// 注册子组件
+	import slider from './sliderComponent.vue'
 	export default{
 		name:"homepage",
 		data(){
@@ -135,6 +129,7 @@
 				pageNo:1
 			}
 		},
+		components:{slider},
 		methods:{
 			imgLoded(){
 				// 图片加载完成后，获取图片的高度
@@ -436,6 +431,12 @@
 	*{
 		box-sizing: border-box;	
 	}
+	/*隐藏滚动条*/
+	html {
+	    -ms-overflow-style:none;
+	    overflow:-moz-scrollbars-none;
+	}
+	html::-webkit-scrollbar{width:0px}
 	div.mint-swipe-indicator{
 		background: white;
 		opacity: 1;

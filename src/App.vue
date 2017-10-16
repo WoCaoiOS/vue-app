@@ -33,6 +33,7 @@ h1, h2 {
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0
 }
 
 li {
@@ -43,4 +44,33 @@ li {
 a {
   color: #42b983;
 }
+*{
+    box-sizing: border-box; 
+  }
+  /*隐藏滚动条*/
+  html {
+      -ms-overflow-style:none;
+      overflow:-moz-scrollbars-none;
+  }
+  html::-webkit-scrollbar{width:0px}
+  div.mint-swipe-indicator{
+    background: white;
+    opacity: 1;
+  }
+  .mint-swipe-indicator.is-active{
+    background: orange;
+  }
+  .fl{
+    float: left;
+  }
+  .fr{
+    float: right;
+  }
+  .clearfix{
+    overflow: hidden;
+  }
+  .mint-header{
+    background: rgb(35,38,43);
+    height: 44px;
+  }
 </style>
