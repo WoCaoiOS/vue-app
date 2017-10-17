@@ -272,6 +272,9 @@
 		color:rgb(145,145,145);
 		font-size: 12px;
 	}
+	.profit ul{
+		padding: 0 5px;
+	}
 	.profit ul li{
 		margin: 10px 0px;
 		width: 33.33%;
@@ -279,7 +282,7 @@
 		/*border: 1px solid red;*/
 	}
 	.profit ul li>div{
-		margin: 5px 5px;
+		margin: 5px 3px;
 		min-height: 60px;
 		/*border: 1px solid red;*/
 		box-shadow: 0 0 2px #dcdcdc;
@@ -305,7 +308,7 @@
 		background: rgb(242,150,0);
 		box-shadow: 0 0 2px #dcdcdc;
 	}
-	.profit ul li:first-child>div{
+	/*.profit ul li:first-child>div{
 		margin-right: 2px;
 	}
 	.profit ul li:nth-child(2)>div{
@@ -313,7 +316,7 @@
 	}
 	.profit ul li:last-child>div{
 		margin-left: 2px;
-	}
+	}*/
 	.user_avatar{
 		text-align: center;
 		position: relative;
