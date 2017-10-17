@@ -49,17 +49,21 @@
 		border-bottom: 1px dashed #dddddd;
 		height: 90px;
 	}
+	ul li>div:first-child{
+		width: 35px;
+	}
 	.order{
 		background: #dcdcdc;
 		width: 24px;
 		height: 24px;
+		margin: auto;
 		margin-top: 21px;
 		text-align: center;
 		line-height: 24px;
 		color: white;
 		font-size: 10px;
 		border-radius: 50%;
-		margin-right: 5px;
+		/*margin-right: 5px;*/
 	}
 	ul li:first-child>div .order,ul li:nth-child(2)>div .order,ul li:nth-child(3)>div .order{
 		background: url(../assets/first.png) no-repeat center;

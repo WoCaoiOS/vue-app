@@ -29,8 +29,10 @@
 						</router-link>
 					</td>
 					<td>
-						<div class="menu_logo"></div>
-						<div>资讯杂谈</div>
+						<router-link to="/news">
+							<div class="menu_logo"></div>
+							<div>资讯杂谈</div>
+						</router-link>
 					</td>
 				</tr>
 				<tr>
@@ -181,7 +183,7 @@
 			},
 			gotoDetail(infoId){
 				this.$store.dispatch('setInfoId',infoId);
-				this.$router.push({path:'/imageDetail'})
+				this.$router.push({path:'/imageDetail/img'})
 			}
 		},
 		created(){
@@ -250,17 +252,17 @@
 		background-image: url(../assets/img_money.gif);
 		background-size: 50%;
 	}
-	table.menu_box tr:first-child>td:nth-child(3)>div.menu_logo{
+	table.menu_box tr:first-child>td:nth-child(3) div.menu_logo{
 		background-image: url(../assets/news.gif);
 	}
-	table.menu_box tr:last-child>td:nth-child(1)>div.menu_logo{
+	table.menu_box tr:last-child>td:nth-child(1) div.menu_logo{
 		background-image: url(../assets/video.gif);
 	}
-	table.menu_box tr:last-child>td:nth-child(2)>div.menu_logo{
+	table.menu_box tr:last-child>td:nth-child(2) div.menu_logo{
 		background-image: url(../assets/jifen.gif);
 		background-size: 50%;
 	}
-	table.menu_box tr:last-child>td:nth-child(3)>div.menu_logo{
+	table.menu_box tr:last-child>td:nth-child(3) div.menu_logo{
 		background-image: url(../assets/follow.gif);
 		background-size: 50%;
 	}

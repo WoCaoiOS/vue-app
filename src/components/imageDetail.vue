@@ -11,10 +11,10 @@
 			</div>
 		</header>
 		<section>
-			<div class="img_box" v-for="url in imgDetailInfo.imgeList">
+			<div v-if="type=='img'" class="img_box" v-for="url in imgDetailInfo.imgeList">
 				<img v-lazy="url" alt="">
 			</div>
-			<div class="data_box">
+			<div v-if="type=='img'||type=='video'" class="data_box">
 				<div class="title">
 					{{imgDetailInfo.title}}
 					<span>#{{imgDetailInfo.type}}</span>
@@ -124,7 +124,8 @@
 				viewHeight:0,
 				showMoneyView:false,  //用来判断是否显示打赏页面
 				money:1,  //打赏的钱数
-				inputText:''//评论文本框中输入的内容
+				inputText:'',//评论文本框中输入的内容
+				type:'' //表示当前页面的类型
 			}
 		},
 		methods:{
@@ -215,8 +216,9 @@
 		},
 		created(){
 			this.viewHeight = screen.height;
-			console.log("----"+screen.height);
-			this.getImgDetail();				
+			this.getImgDetail();	
+			console.log(this.$route.params);
+			this.type = this.$route.params.type			
 		}
 	}
 </script>

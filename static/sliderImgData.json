@@ -1,7 +1,13 @@
-{
+{	
 	"list":[
-		"static/1.jpg",
-		"static/2.jpg",
-		"static/3.jpg"
+		{
+			"img":"static/1.jpg"
+		},
+		{
+			"img":"static/2.jpg"
+		},
+		{
+			"img":"static/3.jpg"
+		}
 	]
 }

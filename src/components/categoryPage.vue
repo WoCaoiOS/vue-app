@@ -125,7 +125,7 @@
 			},
 			gotoDetail(infoId){
 				this.$store.dispatch('setInfoId',infoId);
-				this.$router.push({path:'/imageDetail'})
+				this.$router.push({path:'/imageDetail/img'})
 			}
 		},
 		created(){
