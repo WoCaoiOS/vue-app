@@ -39,7 +39,7 @@
 							<div>
 								<span>$</span>{{user.money}}元
 							</div>
-						</li>
+						</li> 
 					</ul>
 				</div>
 			</div>

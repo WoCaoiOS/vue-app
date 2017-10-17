@@ -18,10 +18,22 @@
 				<div class="fr">
 					榜单详情
 				</div>
-				<!-- <ul class="clearfix list_box">
-					
-				</ul> -->
 			</div>
+			<ul class="clearfix list_box">
+				<li class="fl" v-for="item in profitList">
+					<div>
+						<div class="user_bg">
+							<img :src="item.bgpic" alt="" width="100%">
+						</div>
+						<div class="user_avatar">
+							<img :src="item.avatar" alt="">
+							<div class="order_num">{{item.order}}</div>
+						</div>
+						<div>{{item.userName}}</div>
+						<div>收益:{{item.money}}元</div>
+					</div>		
+				</li>
+			</ul>
 		</div>
 		<div style="height:38px;overflow-y:hidden">
 			<div class="fl menu_box">
@@ -80,19 +92,28 @@
 				dataList:[],
 				size:0,
 				pageType:'',//页面的类型：分类图片或收费图片
-				navTitle:''//导航条标题
+				navTitle:'',//导航条标题
+				profitList:[]
 			}
 		},
 		components:{slider},
 		methods:{
 			goBack(){
 				this.$router.go(-1);
-				console.log("-=-=-=")
 			},
 			getData(){
+				// 如果是收费图片，需要获取榜单前三名
+				if (this.pageType == 'needMoney') {
+					console.log("-=-=-=-=")
+					this.$http.get('./static/profitList.json')
+					.then(response=>{
+						this.profitList = response.data.dataList.topThree;
+						console.log(this.profitList)
+					})
+				}
 				this.$http.get('./static/category.json?imgType=1')
 				.then(response=>{
-					console.log(response)
+					// console.log(response)
 					this.dataList = response.data.dataList;
 				})
 			},
@@ -107,9 +128,10 @@
 			}
 		},
 		created(){
-			this.getData();
+			
 			console.log("-=-=-=-=",this.$route.params)//获取接收到的参数
 			this.pageType = this.$route.params.type;
+			this.getData();
 			if (this.pageType == 'category') {
 				this.navTitle = "分类图片"
 			}else{
@@ -228,5 +250,102 @@
 		padding-right: 5px;
 		background: url(../assets/share_small.png) no-repeat left center;
 		background-size: 15px;
+	}
+	.profit{
+		width: 100%;
+		border-bottom: 10px solid rgb(242,242,242);
+		padding: 10px 5px 5px;
+		font-size: 13px;
+	}
+	.profit>.top_box>div:first-child{
+		margin-left: 5px;
+		padding-left: 20px;
+		background: url(../assets/wallet.png) no-repeat left center;
+		background-size: 18px 18px;
+	}
+	.profit>.top_box>div:last-child{
+		height: 20px;
+		line-height: 20px;
+		border-radius: 10px;
+		padding: 0 7px;
+		border: 1px solid rgb(202,202,202);
+		color:rgb(145,145,145);
+		font-size: 12px;
+	}
+	.profit ul li{
+		margin: 10px 0px;
+		width: 33.33%;
+		min-height: 80px;
+		/*border: 1px solid red;*/
+	}
+	.profit ul li>div{
+		margin: 5px 5px;
+		min-height: 60px;
+		/*border: 1px solid red;*/
+		box-shadow: 0 0 2px #dcdcdc;
+		position: relative;
+	}
+	.profit ul li>div:before{
+		position: absolute;
+		content: '';
+		width: 90%;
+		height: 2px;
+		left: 5%;
+		top:-2px;
+		background: rgb(242,150,0);
+		box-shadow: 0 0 2px #dcdcdc;
+	}
+	.profit ul li>div:after{
+		position: absolute;
+		content: '';
+		width: 90%;
+		height: 2px;
+		left: 5%;
+		bottom:-2px;
+		background: rgb(242,150,0);
+		box-shadow: 0 0 2px #dcdcdc;
+	}
+	.profit ul li:first-child>div{
+		margin-right: 2px;
+	}
+	.profit ul li:nth-child(2)>div{
+		margin: 5px 2px;
+	}
+	.profit ul li:last-child>div{
+		margin-left: 2px;
+	}
+	.user_avatar{
+		text-align: center;
+		position: relative;
+		margin-top: -34px;
+	}
+	.user_avatar>img{
+		width: 40px;
+		border-radius: 50%;
+	}
+	.user_avatar>div{
+		text-align: center;
+		width: 15px;
+		height: 15px;
+		line-height: 15px;
+		border-radius: 10px;
+		background-color: #e60012;
+		color: white;
+		font-size: 8px;
+		position: absolute;
+		top: 25px;
+		left: 55%;
+	}
+	.user_avatar+div{
+		color: #919191;
+		font-size: 13px;
+		text-align: center;
+		padding: 5px 0;
+	}
+	.user_avatar+div+div{
+		text-align: center;
+		font-size: 12px;
+		padding: 5px;
+		padding-bottom: 15px;
 	}
 </style>
