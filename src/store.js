@@ -12,7 +12,8 @@ const store = new Vuex.Store({
 			userId:"001",
 			userName:"萧华",
 			avatar:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2770691011,100164542&fm=27&gp=0.jpg"
-		}
+		},
+		newsInfo:{}//新闻对象
 	},
 	mutations:{
 		setInfoId(state,id){
@@ -24,6 +25,9 @@ const store = new Vuex.Store({
 		},
 		setUserInfo(state,info){
 			state.userInfo = info;
+		},
+		setNewsInfo(state,info){
+			state.newsInfo = info;
 		}
 	},
 	actions:{
@@ -35,6 +39,9 @@ const store = new Vuex.Store({
 		},
 		setUserInfo({commit},info){
 			commit('setUserInfo',info)
+		},
+		setNewsInfo({commit},info){
+			commit('setNewsInfo',info)
 		}
 	},
 	getters:{
@@ -46,6 +53,9 @@ const store = new Vuex.Store({
 		},
 		getUserInfo(state){
 			return state.userInfo;
+		},
+		getNewsInfo(state){
+			return state.newsInfo;
 		}
 	}
 })

@@ -17,20 +17,20 @@
 		</div>
 		<section>
 			<ul class="list_box">
-				<li v-for="img in dataList" class="clearfix" @click="gotoDetail(img.id)">
+				<li v-for="news in dataList" class="clearfix" @click="gotoDetail(news)">
 					<div class="fl img_box">
-						<img v-lazy="img.img" alt="">
+						<img v-lazy="news.img" alt="">
 					</div>
 					<div class="fl intro_box">
 						<div class="title_label">
-							{{img.title}}
+							{{news.title}}
 						</div>
-						<div class="author_label">{{img.author}}</div>
+						<div class="author_label">{{news.author}}</div>
 						<div class="info_label">
-							#{{img.type}}
+							#{{news.type}}
 							<div class="fr">
-								<span class="comment">{{img.comment}}</span>
-								<span class="favorite">{{img.favorite}}</span>
+								<span class="comment">{{news.comment}}</span>
+								<span class="favorite">{{news.favorite}}</span>
 							</div>
 						</div>
 					</div>
@@ -67,8 +67,9 @@
 					this.dataList = response.data.data.newsList;
 				})
 			},
-			gotoDetail(infoId){
-				this.$store.dispatch('setInfoId',infoId);
+			gotoDetail(info){
+				// this.$store.dispatch('setInfoId',infoId);
+				this.$store.dispatch('setNewsInfo',info);
 				this.$router.push({path:'/imageDetail/news'})
 			}
 		},

@@ -9,8 +9,19 @@
 				<img class="avatar" v-lazy="imgDetailInfo.avatar" alt="">
 				{{imgDetailInfo.author}}
 			</div>
+			
 		</header>
 		<section>
+			<div v-if="type=='news'" class="news_view">
+				<div class="news_title">{{imgDetailInfo.title}}</div>
+				<div class="time">{{imgDetailInfo.time}}</div>
+				<div class="nav_content">
+					导读：{{imgDetailInfo.navContent}}
+				</div>
+				<div class="content" v-html="imgDetailInfo.content">
+					
+				</div>
+			</div>
 			<div v-if="type=='img'" class="img_box" v-for="url in imgDetailInfo.imgeList">
 				<img v-lazy="url" alt="">
 			</div>
@@ -212,13 +223,29 @@
 			},
 			userInfo:function(){
 				return this.$store.getters.getUserInfo;
+			},
+			newsInfo:function(){
+				// console.log(this.$store.getters.getNewsInfo)
+				return this.$store.getters.getNewsInfo;
 			}
 		},
+		mounted(){
+			// 设置图片比例
+			document.querySelector('.news_view .content img').style.width='100%';
+		},
 		created(){
-			this.viewHeight = screen.height;
-			this.getImgDetail();	
-			console.log(this.$route.params);
-			this.type = this.$route.params.type			
+			this.viewHeight = screen.height;	
+			this.type = this.$route.params.type;
+			if (this.type == 'news') {
+				this.imgDetailInfo = this.newsInfo;	
+				this.rewardList = this.imgDetailInfo.moneyList;
+				this.comments = this.imgDetailInfo.commentList;	
+				this.praiseIsActive = this.imgDetailInfo.isPraise;
+				this.isFav = this.imgDetailInfo.isFav;
+				console.log(this.imgDetailInfo)
+			}else{
+				this.getImgDetail();
+			}			
 		}
 	}
 </script>
@@ -275,7 +302,7 @@
 		margin: 10px 0 0;
 		line-height: 23px
 	}
-	.data_box>.time{
+	.time{
 		color: #919191;
 		font-size: 10px;
 		padding:10px 20px;
@@ -502,6 +529,24 @@
 	.btn_round{
 		height: 40px;
 		border-radius:20px!important; 
+	}
+	.news_view{
+		padding: 20px 10px 10px;
+	}
+	.news_view .content img,.news_view .content{
+		width: 100%;
+	}
+	.news_view .news_title{
+		color: #2d2d2d;
+		font-size: 18px;
+	}
+	.nav_content{
+		color: #2d2d2d;
+		font-size: 13px;
+		margin: 10px 0;
+	}
+	.content{
+		font-size: 13px;
 	}
 </style>
 <style>

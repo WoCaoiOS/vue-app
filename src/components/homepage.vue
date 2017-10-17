@@ -37,8 +37,10 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="menu_logo"></div>
-						<div>视频拍客</div>
+						<router-link to="/video">
+							<div class="menu_logo"></div>
+							<div>视频拍客</div>
+						</router-link>
 					</td>
 					<td>
 						<div class="menu_logo"></div>
@@ -96,15 +98,15 @@
 					<td v-for="j of 2" @click="gotoDetail(hotList[2*i+j-3].id)">
 						<div>
 							<img v-lazy="hotList[2*i+j-3].img" alt="">
-							<span>组图{{hotList[2*i+j-3].imgeList.length}}张</span>
+							<span v-if="hotList[2*i+j-3].id.length>0">组图{{hotList[2*i+j-3].imgeList.length}}张</span>
 						</div>
-						<div class="hot_title">
+						<div class="hot_title" v-if="hotList[2*i+j-3].id.length>0">
 							{{hotList[2*i+j-3].title}}
 						</div>
-						<div class="hot_author">
+						<div class="hot_author" v-if="hotList[2*i+j-3].id.length>0">
 							{{hotList[2*i+j-3].author}}
 						</div>
-						<div class="hot_info">
+						<div class="hot_info" v-if="hotList[2*i+j-3].id.length>0">
 							<b>{{hotList[2*i+j-3].comment}}</b>
 							<b>{{hotList[2*i+j-3].favorite}}</b>
 						</div>
@@ -151,6 +153,20 @@
 					console.log(response);
 					this.dataList = response.data.dataList;
 					this.hotList = response.data.hotList;
+					if (this.hotList.length%2!=0) {
+						var obj = {
+							"id":"",
+							"img":"",
+							"title":"",
+							"author":"",
+							"description":"",
+							"type":"",
+							"comment":0,
+							"favorite":0,
+							"imgeList":[]
+						}
+						this.hotList.push(obj)
+					}
 				})
 			},
 			loadTop(){
