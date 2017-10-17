@@ -73,4 +73,8 @@ a {
     background: rgb(35,38,43);
     height: 44px;
   }
+  a{
+    color:rgb(45,45,45);
+    text-decoration: none;
+  }
 </style>

@@ -15,9 +15,10 @@
 				<div class="fl">
 					收益榜
 				</div>
-				<div class="fr">
-					榜单详情
-				</div>
+				<router-link to="/profitDetail">
+					<div class="fr">榜单详情</div>
+				</router-link>
+				
 			</div>
 			<ul class="clearfix list_box">
 				<li class="fl" v-for="item in profitList">
@@ -263,7 +264,7 @@
 		background: url(../assets/wallet.png) no-repeat left center;
 		background-size: 18px 18px;
 	}
-	.profit>.top_box>div:last-child{
+	.profit>.top_box>a>div{
 		height: 20px;
 		line-height: 20px;
 		border-radius: 10px;
@@ -350,5 +351,11 @@
 		font-size: 12px;
 		padding: 5px;
 		padding-bottom: 15px;
+	}
+	ul li:nth-child(2) .user_avatar>div{
+		background: #ffac2a;
+	}
+	ul li:last-child .user_avatar>div{
+		background: #6dc02a
 	}
 </style>
