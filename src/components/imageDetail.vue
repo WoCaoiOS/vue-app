@@ -22,6 +22,9 @@
 					
 				</div>
 			</div>
+			<div v-if="type=='video'">
+				<video :src="imgDetailInfo.video" controls="" width="100%"></video>
+			</div>
 			<div v-if="type=='img'" class="img_box" v-for="url in imgDetailInfo.imgeList">
 				<img v-lazy="url" alt="">
 			</div>
@@ -227,17 +230,32 @@
 			newsInfo:function(){
 				// console.log(this.$store.getters.getNewsInfo)
 				return this.$store.getters.getNewsInfo;
+			},
+			videoInfo:function(){
+				// console.log(this.$store.getters.getNewsInfo)
+				return this.$store.getters.getVideoInfo;
 			}
 		},
 		mounted(){
-			// 设置图片比例
-			document.querySelector('.news_view .content img').style.width='100%';
+			if (this.type == 'news') {
+				// 设置图片比例
+				document.querySelector('.news_view .content img').style.width='100%';
+			}
+			
 		},
 		created(){
 			this.viewHeight = screen.height;	
 			this.type = this.$route.params.type;
 			if (this.type == 'news') {
 				this.imgDetailInfo = this.newsInfo;	
+				this.rewardList = this.imgDetailInfo.moneyList;
+				this.comments = this.imgDetailInfo.commentList;	
+				this.praiseIsActive = this.imgDetailInfo.isPraise;
+				this.isFav = this.imgDetailInfo.isFav;
+				console.log(this.imgDetailInfo)
+			}else if(this.type == 'video'){
+				console.log(this.videoInfo)
+				this.imgDetailInfo = this.videoInfo;	
 				this.rewardList = this.imgDetailInfo.moneyList;
 				this.comments = this.imgDetailInfo.commentList;	
 				this.praiseIsActive = this.imgDetailInfo.isPraise;

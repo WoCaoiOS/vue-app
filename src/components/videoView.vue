@@ -12,19 +12,25 @@
 		</mt-navbar>
 		<table class="hot_table">
 			<tr v-for="i of Math.ceil(videoList.length/2)">
-				<td v-for="j of 2-videoList.length%2" @click="gotoDetail(videoList[2*i+j-3].id)">
-					<div>
-						<img v-lazy="videoList[2*i+j-3].pic" alt="">
+				<td v-for="j of 2-videoList.length%2" @click="gotoDetail(videoList[2*i+j-3])">
+					<div v-if="videoList[2*i+j-3].comment!=-1" class="bg_div" :style="{backgroundImage:'url('+videoList[2*i+j-3].pic+')'}">
+						<div class="gray_bg">
+							<span>{{videoList[2*i+j-3].author}}</span>
+							<div class="fr">
+								<b>{{videoList[2*i+j-3].comment}}</b>
+								<b>{{videoList[2*i+j-3].favorite}}</b>
+							</div>
+							
+						</div>
 					</div>
 					<div class="hot_title">
 						{{videoList[2*i+j-3].title}}
 					</div>
-					<div class="hot_author">
-						{{videoList[2*i+j-3].author}}
-					</div>
-					<div class="hot_info" v-if="videoList[2*i+j-3].comment!=-1">
-						<b>{{videoList[2*i+j-3].comment}}</b>
-						<b>{{videoList[2*i+j-3].favorite}}</b>
+					<div class="type_time" v-if="videoList[2*i+j-3].comment!=-1">
+						#{{videoList[2*i+j-3].type}}
+						<span>
+							{{new Date(videoList[2*i+j-3].time).format('MM-dd')}}
+						</span>
 					</div>
 				</td>
 			</tr>
@@ -62,6 +68,10 @@
 					}
 					console.log(this.videoList[0].pic);
 				})
+			},
+			gotoDetail(info){
+				this.$store.dispatch('setVideoInfo',info);
+				this.$router.push({path:'/imageDetail/video'})
 			}
 		},
 		created(){
@@ -102,7 +112,7 @@
 		padding-bottom: 5px;
 		border:1px solid #f4f4f4;
 	}
-	.hot_table td div{
+	.hot_table td>div{
 		position: relative;
 		width: 100%;
 		text-align: left;
@@ -113,25 +123,42 @@
 	}
 	.hot_table td div:first-child{
 		padding: 0;
-
+		height: 100px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		position: relative;
 	}
-	.hot_table td img{
-		width: 100%;
-		display: block;
-	}
-	.hot_table td div span{
+	.hot_table td div .gray_bg{
+		height: 30px;
+		line-height: 30px;
+		background-color: rgba(0,0,0,.5);
 		position: absolute;
-		right: 0;
-		top: 5px;
-		padding: 5px 5px;
-		color: white;
-		background-color: rgba(242,150,0,0.4);
-		font-size: 10px;
+		left: 0;
+		bottom: 0;
+		color:white;
+		font-size: 12px;
+		padding: 0 5px;
+		width: 100%;
+	}
+	.gray_bg>span{
+		padding-left: 20px;
+		display: inline-block;
+		width: 45%;
+		background: url(../assets/user.png) no-repeat left center;
+	}
+	.gray_bg>div{
+		width:55%;
+		text-align:right;
+		background-color:transparent;
+		color:white
 	}
 	.hot_table td div.hot_title{
 		margin-top: 10px;
 		color: #000000;
 		font-size: 13px;
+		height: 25px;
+		line-height: 25px;
+		overflow:hidden;
 	}
 	.hot_table td div.hot_author{
 		font-size: 11px;
@@ -143,19 +170,25 @@
 		padding-top: 5px;
 		padding-bottom:10px;
 	}
-	.hot_table td div.hot_info b{
+	.hot_table td div b{
 		font-weight: normal;
 		font-size: 10px;
 		padding-left: 20px;
 		background: no-repeat left center;
 		background-size: 20px 20px;
-		padding-right: 10px;
+		/*padding-right: 10px;*/
 		
 	}
-	.hot_table td div.hot_info b:first-child{
-		background-image: url('../assets/comment.png');
+	.hot_table td div b:first-child{
+		background-image: url('../assets/comment_1.png');
 	}
-	.hot_table td div.hot_info b:last-child{
-		background-image: url('../assets/favorite.png');
+	.hot_table td div b:last-child{
+		background-image: url('../assets/favorite_1.png');
+	}
+	.type_time{
+		font-size: 11px;
+	}
+	.type_time span{
+		margin-left: 10px;
 	}
 </style>

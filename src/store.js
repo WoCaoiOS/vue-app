@@ -13,7 +13,8 @@ const store = new Vuex.Store({
 			userName:"萧华",
 			avatar:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2770691011,100164542&fm=27&gp=0.jpg"
 		},
-		newsInfo:{}//新闻对象
+		newsInfo:{},//新闻对象
+		videoInfo:{}
 	},
 	mutations:{
 		setInfoId(state,id){
@@ -28,6 +29,9 @@ const store = new Vuex.Store({
 		},
 		setNewsInfo(state,info){
 			state.newsInfo = info;
+		},
+		setVideoInfo(state,info){
+			state.videoInfo = info;
 		}
 	},
 	actions:{
@@ -42,6 +46,9 @@ const store = new Vuex.Store({
 		},
 		setNewsInfo({commit},info){
 			commit('setNewsInfo',info)
+		},
+		setVideoInfo({commit},info){
+			commit('setVideoInfo',info)
 		}
 	},
 	getters:{
@@ -56,8 +63,11 @@ const store = new Vuex.Store({
 		},
 		getNewsInfo(state){
 			return state.newsInfo;
+		},
+		getVideoInfo(state){
+			return state.videoInfo;
 		}
-	}
+	}	
 })
 
 export default store
