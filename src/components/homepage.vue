@@ -1,9 +1,8 @@
 <template>
 	<div id="homepage">
 		<mt-header title="白狐图片分享社区">
-	  		<router-link to="/" slot="left">
-	    		<mt-button class="user_center"></mt-button>
-	  		</router-link>
+	    	<mt-button class="user_center" slot="left" @click="goToUserCenter"></mt-button>
+	  
 	  		<router-link to="/" slot="right">
 	    		<mt-button class="search"></mt-button>
 	  		</router-link>
@@ -203,6 +202,18 @@
 			gotoDetail(infoId){
 				this.$store.dispatch('setInfoId',infoId);
 				this.$router.push({path:'/imageDetail/img'})
+			},
+			goToUserCenter(){
+				//首先需要获取登录状态
+				var status = this.$store.getters.getLoginStatus;
+				console.log(status)
+				// 如果有已经登录，则进入到个人中心
+				if (status) {
+					this.$router.push({path:'/userCenter'})
+				}else{
+					// 如果未登录，则跳转到登录页
+					this.$router.push({path:'/login'})
+				}	
 			}
 		},
 		created(){

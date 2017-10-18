@@ -5,7 +5,8 @@ import ProfitDetail from './components/profitDetail.vue'
 import NewsList from './components/newsList.vue'
 import VideoPage from './components/videoView.vue'
 import FollowPage from './components/followPage.vue'
-
+import loginView from './components/login.vue'
+import UserCenter from './components/userCenter.vue'
 export default[
 	{path:'/home',component:Home},
 	{path:'/imageDetail/:type',component:ImageDetail},
@@ -14,6 +15,8 @@ export default[
 	{path:'/news',component:NewsList},
 	{path:'/video',component:VideoPage},
 	{path:'/follow',component:FollowPage},
+	{path:'/login',component:loginView},
+	{path:'/userCenter',component:UserCenter},
 	{path:'/',component:Home},
 	{path:'*',component:Home}
 ]
