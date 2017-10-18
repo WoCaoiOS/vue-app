@@ -47,8 +47,10 @@
 						<div>积分商城</div>
 					</td>
 					<td>
-						<div class="menu_logo"></div>
-						<div>关注动态</div>
+						<router-link to="/follow">
+							<div class="menu_logo"></div>
+							<div>关注动态</div>
+						</router-link>
 					</td>
 				</tr>
 			</table>
@@ -119,6 +121,7 @@
 	</div>
 </template>
 <script>
+	import { MessageBox } from 'mint-ui';//单独引入弹出框
 // 注册子组件
 	import slider from './sliderComponent.vue'
 	export default{

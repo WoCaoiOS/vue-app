@@ -4,6 +4,7 @@ import Category from "./components/categoryPage.vue"
 import ProfitDetail from './components/profitDetail.vue'
 import NewsList from './components/newsList.vue'
 import VideoPage from './components/videoView.vue'
+import FollowPage from './components/followPage.vue'
 
 export default[
 	{path:'/home',component:Home},
@@ -12,6 +13,7 @@ export default[
 	{path:'/profitDetail',component:ProfitDetail},
 	{path:'/news',component:NewsList},
 	{path:'/video',component:VideoPage},
+	{path:'/follow',component:FollowPage},
 	{path:'/',component:Home},
 	{path:'*',component:Home}
 ]
