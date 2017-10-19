@@ -22,7 +22,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="content"></div>
+		<div class="content">
+			<mt-navbar v-model="selected">
+			  <mt-tab-item id="1">全部</mt-tab-item>
+			  <mt-tab-item id="2">支出</mt-tab-item>
+			  <mt-tab-item id="3">收益</mt-tab-item>
+			</mt-navbar>
+		</div>
+		<ul>
+			<li class="clearfix" v-for="item in moneyList">
+				<div class="fl">
+					<div class="title_label">{{item.title}}</div>
+					<div class="date_label">{{item.date}}</div>
+				</div>
+				<div class="fr">
+					<div class="type_label">
+						{{item.type==1?'收益':'支出'}}
+					</div>
+					<div class="money_label" :class="{outType:item.type==0}">
+						{{item.type==1?'+':'-'}}{{item.money}}
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 </template>
 <script>
@@ -30,7 +52,10 @@
 		name:"money",
 		data(){
 			return{
-
+				selected:'1',//当前选中的状态
+				oldValue:'1',//之前的状态
+				moneyList:[],
+				allList:[]
 			}
 		},
 		computed:{
@@ -86,6 +111,47 @@
 				// 得到转换结果
 				return m.split('').reverse().join('')+subStr;
 			}
+		},
+		methods:{
+			getData(){
+				this.$http.get('./static/myIncome.json')
+				.then(response=>{
+					this.moneyList = response.data.moneyList;
+					this.allList = response.data.moneyList;
+				})
+			}
+		},
+		created(){
+			this.getData()
+		},
+		updated(){
+			
+			if (this.selected == this.oldValue) {
+				console.log("-=-=-=-=+"+this.selected+"====="+ this.oldValue)
+				return;
+			}
+			this.oldValue = this.selected;
+			switch(this.selected){
+				case '1':
+					this.moneyList = this.allList;
+				break;
+				case '2':
+					this.moneyList = [];
+					for (var i = 0; i < this.allList.length; i++) {
+						if (this.allList[i].type == 0) {
+							this.moneyList.push(this.allList[i])
+						}
+					}
+				break;
+				case '3':
+					this.moneyList = [];
+					for (var i = 0; i < this.allList.length; i++) {
+						if (this.allList[i].type == 1) {
+							this.moneyList.push(this.allList[i])
+						}
+					}
+				break;
+			}
 		}
 	}
 </script>
@@ -111,8 +177,8 @@
 	}
 	.content{
 		width: 100%;
-		height: 100px;
-		background: red;
+		background: #f5f5f5;
+		padding-top: 10px;
 	}
 	.info_box{
 		position: absolute;
@@ -155,5 +221,55 @@
 		width: 1px;
 		content: '';
 		background-color: white;
+	}
+	.mint-tab-item{
+		color: #2d2d2d;
+		font-size: 13px;
+	}
+	.mint-navbar .mint-tab-item.is-selected{
+		color: rgb(242,150,0);
+		border-bottom: none; 
+		margin-bottom: 0;
+		position: relative;
+	}
+	.is-selected:after{
+		width: 60%;
+		height: 2px;
+		position: absolute;
+		left: 20%;
+		bottom: 0;
+		content: '';
+		background:rgb(242,150,0);
+	}
+	ul{
+		margin-top: 10px;
+		padding: 0 10px;
+	}
+	li{
+		padding: 15px 0px;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	.title_label{
+		color: #2d2d2d;
+		font-size: 13px;
+		line-height: 30px;
+	}
+	.date_label{
+		color: #919191;
+		font-size: 11px;
+	}
+	.type_label{
+		color: #2d2d2d;
+		font-size: 13px;
+		line-height: 30px;
+	}
+	.money_label{
+		color: #f4b559;
+		font-size: 13px;
+		font-weight: bold;
+		text-align: right;
+	}
+	.outType{
+		color: #e34115;
 	}
 </style>
