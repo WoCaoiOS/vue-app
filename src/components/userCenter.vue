@@ -18,32 +18,62 @@
 				</div>
 			</div>
 		</div>
-		<ul class="menu_list clearfix">
-			<li class="fl">
-				<div>
-					<img src="../assets/subMoney.png" alt="">
-				</div>
-				<div>我的余额</div>
-			</li>
-			<li class="fl">
-				<div>
-					<img src="../assets/score.png" alt="">
-				</div>
-				<div>我的积分</div>
-			</li>
-			<li class="fl">
-				<div>
-					<img src="../assets/my_favorite.png" alt="">
-				</div>
-				<div>我的收藏</div>
-			</li>
-			<li class="fl">
-				<div>
-					<img src="../assets/my_msg.png" alt="">
-				</div>
-				<div>我的消息</div>
-			</li>
-		</ul>
+		<div class="menu_list">
+			<ul class="menu_list clearfix">
+				<li class="fl">
+					<div>
+						<img src="../assets/subMoney.png" alt="">
+					</div>
+					<div>我的余额</div>
+				</li>
+				<li class="fl">
+					<div>
+						<img src="../assets/score.png" alt="">
+					</div>
+					<div>我的积分</div>
+				</li>
+				<li class="fl">
+					<div>
+						<img src="../assets/my_favorite.png" alt="">
+					</div>
+					<div>我的收藏</div>
+				</li>
+				<li class="fl">
+					<div>
+						<img src="../assets/my_msg.png" alt="">
+					</div>
+					<div>我的消息</div>
+				</li>
+			</ul>
+		</div>
+		
+		<mt-navbar v-model="selected">
+		  <mt-tab-item id="1">图片</mt-tab-item>
+		  <mt-tab-item id="2">视频</mt-tab-item>
+		  <mt-tab-item id="3">文章</mt-tab-item>
+		</mt-navbar>
+
+		<!-- tab-container -->
+		<mt-tab-container v-model="selected">
+		  <mt-tab-container-item id="1">
+		    <div class="clearfix" v-for="i of Math.ceil(imageList.length/2)">
+		    	<div class="fl w_50 r_10" :style="{height:divHeight+'px',width:divHeight+'px',backgroundImage:'url('+imageList[2*(i-1)].img+')'}">
+		    		<span v-if="imageList[2*(i-1)].imgeList.length>0">组图{{imageList[2*(i-1)].imgeList.length}}张</span>
+		    		<div class="p_b" v-if="imageList[2*(i-1)].needMoney">收费{{imageList[2*(i-1)].price}}元</div>
+		    	</div>
+		    	<div class="fl w_50 l_10" :style="{height:divHeight+'px',width:divHeight+'px',backgroundImage:'url('+imageList[2*i-1].img+')'}">
+		    		<span v-if="imageList[2*i-1].imgeList.length>0">组图{{imageList[2*(i-1)].imgeList.length}}张</span>
+		    		<div class="p_b" v-if="imageList[2*i-1].needMoney">收费{{imageList[2*i-1].price}}元</div>
+		    	</div>
+		    </div>
+		  </mt-tab-container-item>
+		  <mt-tab-container-item id="2">
+		    <mt-cell v-for="n in 4" :title="'测试 ' + n" />
+		  </mt-tab-container-item>
+		  <mt-tab-container-item id="3">
+		    <mt-cell v-for="n in 6" :title="'选项 ' + n" />
+		  </mt-tab-container-item>
+		</mt-tab-container>
 	</div>
 </template>
 <script>
@@ -51,7 +81,9 @@
 		name:"userCenter",
 		data(){
 			return{
-
+				selected:"1",
+				imageList:[],
+				divHeight:0,
 			}
 		},
 		computed:{
@@ -59,6 +91,22 @@
 			userInfo(){
 				return this.$store.getters.getUserInfo;
 			}
+		},
+		methods:{
+			getData(){
+				this.$http.get('./static/userImgData.json')
+				.then(response=>{
+					this.imageList = response.data.imgList;
+				})
+			}
+		},
+		mounted(){
+			var width = document.querySelector('.mint-tab-container-wrap').clientWidth-60;
+			this.divHeight = width/2;
+			console.log(this.divHeight)
+		},
+		created(){
+			this.getData()
 		}
 	}
 </script>
@@ -66,8 +114,8 @@
 	#userCenter{
 		background-repeat: no-repeat;
 		background-size: contain;
-		padding:0 15px;
-		/*height: 300px;*/
+		/*padding:0 15px;*/
+		/*background-color:#f5f5f5;*/
 	}
 	#userCenter .mint-header{
 		background-color: transparent;
@@ -79,6 +127,7 @@
 	}
 	.info_box{
 		margin: 50px 0 50px;
+		padding: 0 20px;
 	}
 	.avatar{
 		width: 50px;
@@ -98,7 +147,10 @@
 		height: 25px;
 		line-height: 25px;
 	}
-	.menu_list{
+	div.menu_list{
+		padding:0 20px;
+	}
+	ul.menu_list{
 		padding: 20px 0;
 		border-bottom: 1px solid #dddddd;
 	}
@@ -112,5 +164,66 @@
 	}
 	ul.menu_list li div img{
 		width: 50px;
+	}
+	.mint-tab-item{
+		color: #2d2d2d;
+		font-size: 13px;
+	}
+	.mint-navbar .mint-tab-item.is-selected{
+		color: rgb(242,150,0);
+		border-bottom: none; 
+		margin-bottom: 0;
+		position: relative;
+	}
+	.is-selected:after{
+		width: 60%;
+		height: 2px;
+		position: absolute;
+		left: 20%;
+		bottom: 0;
+		content: '';
+		background:rgb(242,150,0);
+	}
+	.mint-tab-container-item>div{
+		margin-bottom: 20px;
+	}
+	.w_50{
+
+		/*border: 1px solid red;*/
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		position: relative;
+	}
+	.w_50 span{
+		position: absolute;
+		right: 0;
+		top: 5px;
+		padding: 5px 5px;
+		color: white;
+		background-color: rgba(242,150,0,0.4);
+		font-size: 10px;
+	}
+	.r_10{
+		margin-right: 10px;
+	}
+	.l_10{
+		margin-left: 10px;
+	}
+	.p_b{
+		width: 100%;
+		text-align: right;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		color:white;
+		font-size: 11px;
+		padding: 0 10px 5px 0;
+	}
+</style>
+<style>
+	.mint-tab-container-wrap{
+		background: #f5f5f5;
+		padding: 20px;
 	}
 </style>
