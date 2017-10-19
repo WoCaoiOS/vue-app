@@ -81,24 +81,7 @@
 			"favorite":10,
 			"needMoney":0,
 			"price":0,
-			"imgeList":[
-				
-			]	
-		},
-		{
-			"id":"0010",
-			"img":"static/homeImgs/hot_54.png",
-			"title":"经典逆光人像速成技巧",
-			"author":"战三",
-			"description":"昨天借多久哦文件低价位机欧锦都二维",
-			"type":"人像",
-			"comment":10,
-			"favorite":10,
-			"needMoney":1,
-			"price":20,
-			"imgeList":[
-				
-			]	
+			"imgeList":[]	
 		}
 	]
 }

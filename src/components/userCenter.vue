@@ -21,10 +21,12 @@
 		<div class="menu_list">
 			<ul class="menu_list clearfix">
 				<li class="fl">
-					<div>
-						<img src="../assets/subMoney.png" alt="">
-					</div>
-					<div>我的余额</div>
+					<router-link to="/money">
+						<div>
+							<img src="../assets/subMoney.png" alt="">
+						</div>
+						<div>我的余额</div>
+					</router-link>
 				</li>
 				<li class="fl">
 					<div>
@@ -61,7 +63,7 @@
 		    		<span v-if="imageList[2*(i-1)].imgeList.length>0">组图{{imageList[2*(i-1)].imgeList.length}}张</span>
 		    		<div class="p_b" v-if="imageList[2*(i-1)].needMoney">收费{{imageList[2*(i-1)].price}}元</div>
 		    	</div>
-		    	<div class="fl w_50 l_10" :style="{height:divHeight+'px',width:divHeight+'px',backgroundImage:'url('+imageList[2*i-1].img+')'}">
+		    	<div v-if="imageList[2*i-1].id != -1" class="fl w_50 l_10" :style="{height:divHeight+'px',width:divHeight+'px',backgroundImage:'url('+imageList[2*i-1].img+')'}">
 		    		<span v-if="imageList[2*i-1].imgeList.length>0">组图{{imageList[2*(i-1)].imgeList.length}}张</span>
 		    		<div class="p_b" v-if="imageList[2*i-1].needMoney">收费{{imageList[2*i-1].price}}元</div>
 		    	</div>
@@ -97,6 +99,22 @@
 				this.$http.get('./static/userImgData.json')
 				.then(response=>{
 					this.imageList = response.data.imgList;
+					if (this.imageList.length%2!=0) {
+						var obj={
+							"id":"-1",
+							"img":"static/homeImgs/hot_51.png",
+							"title":"经典逆光人像速成技巧",
+							"author":"李晓华",
+							"description":"昨天借多久哦文件低价位机欧锦都二维",
+							"type":"人像",
+							"comment":10,
+							"favorite":10,
+							"needMoney":0,
+							"price":0,
+							"imgeList":[]
+						}
+						this.imageList.push(obj)
+					}
 				})
 			}
 		},
